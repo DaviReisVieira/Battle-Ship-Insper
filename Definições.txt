@@ -1,0 +1,17 @@
+Duas naves
+Meteoros no meio
+Tiros
+
+Objetivo: Matar o outro player para finalizar o jogo!
+
+
+Futuras Iterações:
+-Tela Inicial
+-Items
+-Placar de cada jogador
+-Vida de cada jogador
+
+Se der tempo:
+- Menu:
+- Escolha de player ships
+- Velocidade dos meteoros (dificuldade) 
