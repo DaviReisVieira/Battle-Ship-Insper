@@ -1,25 +1,16 @@
 import pygame
-## made by me
+import assets as assets_file
+from config import WIDTH, HEIGHT, BLACK
 
 pygame.init()
 
 # Resolução da Tela
-
-WIDTH = 960
-HEIGHT = 720
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Space Battle')
 lastFlick = 0
 
-# cores:
-BLACK = (0,0,0)
 
-
-assets={}
-assets['background'] = pygame.image.load('resources/img/background.png').convert()
-assets['background'] = pygame.transform.scale(assets['background'], (WIDTH,HEIGHT))
-assets['Letreiro'] = pygame.image.load('resources/img/TelaInicialLetreiro.png').convert_alpha()
-assets['PressKey'] = pygame.image.load('resources/img/TelaInicialPressKey.png').convert_alpha()
+assets = assets_file.load_assets()
 
 game = True
 

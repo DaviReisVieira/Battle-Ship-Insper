@@ -1,41 +1,17 @@
 import pygame
 import random
+import assets as assets_file
 import os
 import sys
+from config import WIDTH, HEIGHT, BLACK, WHITE, ASTEROID_HEIGHT, ASTEROID_WIDTH, SHIP_AREA, SHIP_SIZE, SHIP_SPEED
 
 pygame.init()
-## GERA TELA PRINCIPAL:
 
-# Resolução da Tela
-
-WIDTH = 960
-HEIGHT = 720
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Space Battle')
 
-# Cores
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
 
-ASTEROID_WIDTH=36
-ASTEROID_HEIGHT=36
-SHIP_SIZE=60
-SHIP_AREA=80
-SHIP_SPEED=6
-
-#posx = {'cima':0,'baixo':0}
-# assets:
-assets={}
-assets['background'] = pygame.image.load('resources/img/background.png').convert()
-assets['background'] = pygame.transform.scale(assets['background'], (WIDTH,HEIGHT))
-assets['asteroids'] = pygame.image.load('resources/img/asteroids.png').convert_alpha()
-assets['asteroids'] = pygame.transform.scale(assets['asteroids'], (ASTEROID_WIDTH,ASTEROID_HEIGHT))
-assets['ship1'] = pygame.image.load('resources/img/ship1.png').convert_alpha()
-assets['ship1'] = pygame.transform.scale(assets['ship1'], (SHIP_SIZE, SHIP_SIZE))
-assets['ship1'] = pygame.transform.rotate(assets['ship1'], -90)
-assets['ship2'] = pygame.image.load('resources/img/ship2.png').convert_alpha()
-assets['ship2'] = pygame.transform.scale(assets['ship2'], (SHIP_SIZE, SHIP_SIZE))
-assets['ship2'] = pygame.transform.rotate(assets['ship2'], 90)
+assets= assets_file.load_assets()
 
 game = True
 
@@ -60,8 +36,21 @@ class Asteroides(pygame.sprite.Sprite):
 
 
 class Laser(pygame.sprite.Sprite):
-    def __init__(self, groups, ):
+    def __init__(self, groups, assets, centery, posx, vx):
         pygame.sprite.Sprite.__init__(self)
+
+        self.image = assets['laser']
+        self.rect = self.image.get_rect()
+        self.rect.centery = centery
+        self.rect.x = posx
+        self.speedx = vx
+    
+    def update(self):
+        self.rect.x += self.speedx
+
+        if self.rect.x > WIDTH or self.rect.x < 0:
+            self.kill()
+
 
 
 class Ship(pygame.sprite.Sprite):
