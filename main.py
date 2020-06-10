@@ -1,9 +1,7 @@
 import pygame
 import random
-import assets as assets_file
-import os
-import sys
-from config import WIDTH, HEIGHT, BLACK, WHITE, ASTEROID_HEIGHT, ASTEROID_WIDTH, SHIP_AREA, SHIP_SIZE, SHIP_SPEED
+import assets
+from config import *
 
 pygame.init()
 
@@ -11,7 +9,7 @@ window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Space Battle')
 
 
-assets= assets_file.load_assets()
+assets = assets.load_assets()
 
 game = True
 
@@ -36,10 +34,10 @@ class Asteroides(pygame.sprite.Sprite):
 
 
 class Laser(pygame.sprite.Sprite):
-    def __init__(self, assets, centery, posx, vx):
+    def __init__(self, assets,laser_player, centery, posx, vx):
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = assets['laser']
+        self.image = assets[laser_player]
         self.rect = self.image.get_rect()
         self.rect.centery = centery
         self.rect.x = posx
@@ -47,7 +45,7 @@ class Laser(pygame.sprite.Sprite):
     def update(self):
         self.rect.x += self.speedx
 
-        if self.rect.x > WIDTH or self.rect.x < 0:
+        if self.rect.x > WIDTH-SHIP_SIZE or self.rect.x < 0:
             self.kill()
 
 
@@ -58,7 +56,7 @@ class Ship(pygame.sprite.Sprite):
 
         self.image = assets[ship_player]
         self.rect = self.image.get_rect()
-        self.rect.centery = HEIGHT/2
+        self.rect.centery = int(HEIGHT/2)
         self.rect.x = posx
         self.speedy = 0
         self.groups = groups
@@ -82,8 +80,8 @@ class Ship(pygame.sprite.Sprite):
         if elapsed_ticks > self.shoot_ticks:
             self.last_shot = now
 
-            new_laser_1 = Laser(self.assets, self.rect.centery, self.rect.x, 5)
-            new_laser_2 = Laser(self.assets, self.rect.centery, self.rect.x, -5)
+            new_laser_1 = Laser(self.assets,'laser1', self.rect.centery, self.rect.x, 6)
+            new_laser_2 = Laser(self.assets,'laser2', self.rect.centery, self.rect.x, -6)
             self.groups['all_sprites'].add(new_laser_1)
             self.groups['all_sprites'].add(new_laser_2)
             self.groups['all_lasers_1'].add(new_laser_1)
@@ -103,13 +101,13 @@ groups['all_asteroids'] = all_asteroids
 groups['all_lasers_1'] = all_lasers_1
 groups['all_lasers_2'] = all_lasers_2
 
-player_1 = Ship(groups, assets,'ship1' , 0)
+player_1 = Ship(groups, assets,'ship1', 0)
 player_2 = Ship(groups, assets, 'ship2', WIDTH-SHIP_SIZE)
 
 all_sprites.add(player_1)
 all_sprites.add(player_2)
 
-for i in range(30):
+for i in range(15):
     asteroid = Asteroides(assets)
     all_sprites.add(asteroid)
     all_asteroids.add(asteroid)

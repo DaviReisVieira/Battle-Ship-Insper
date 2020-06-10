@@ -28,7 +28,12 @@ Iremos realizar uma versão utilizando a biblioteca PyGame para o projeto.
 **METAS**
 - [x] Aprender a usar o Github
 - [x] Trabalho em Equipe
-- [ ] Divisão das Tarefas
+- [x] Divisão das Tarefas
+- [x] Realização do Background
+- [x] Adicionando asteróides
+- [x] Adicionando naves
+- [ ] Adicionar física de colisão
+- [x] Criar Menu 
 
 ## Instalação
 
