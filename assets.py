@@ -9,6 +9,7 @@ def load_assets():
     assets['background'] = pygame.image.load('resources/img/background.png').convert_alpha()
     assets['background'] = pygame.transform.scale(assets['background'], (WIDTH,HEIGHT))
     assets['Letreiro'] = pygame.image.load('resources/img/TelaInicialLetreiro.png').convert_alpha()
+    assets['Instrucoes'] = pygame.image.load('resources/img/TelaInicialInstrucoes.png').convert_alpha()
     assets['PressKey'] = pygame.image.load('resources/img/TelaInicialPressKey.png').convert_alpha()
     assets['asteroids'] = pygame.image.load('resources/img/asteroids.png').convert_alpha()
     assets['asteroids'] = pygame.transform.scale(assets['asteroids'], (ASTEROID_WIDTH,ASTEROID_HEIGHT))

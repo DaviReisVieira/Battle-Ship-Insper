@@ -1,6 +1,8 @@
 ## Screen
 WIDTH = 960
 HEIGHT = 720
+ORIGEM = (0,0)
+FPS = 30
 
 # Cores
 BLACK = (0, 0, 0)
@@ -12,3 +14,9 @@ ASTEROID_HEIGHT=36
 SHIP_SIZE=60
 SHIP_AREA=80
 SHIP_SPEED=6
+
+## Função de estado:
+QUIT = 0
+TELA_INICIAL = 1
+INSTRUCOES = 2
+GAME = 3
