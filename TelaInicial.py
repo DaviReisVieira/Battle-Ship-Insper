@@ -8,22 +8,22 @@ def tela_inicial (TELA):
 
     assets = assets_file.load_assets()
 
-    game = TELA_INICIAL
+    estado = TELA_INICIAL
     last_flick = 0  # Press Any Key piscando
 
-    while game != QUIT and game != GAME:
+    while estado != QUIT and estado != GAME:
         clock.tick(FPS)
       
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                game = QUIT
-            elif event.type == pygame.KEYDOWN and game != INSTRUCOES:
-                game = INSTRUCOES
+                estado = QUIT
+            elif event.type == pygame.KEYDOWN and estado != INSTRUCOES:
+                estado = INSTRUCOES
             elif event.type == pygame.KEYDOWN:
-                game = GAME
+                estado = GAME
 
                     
-        if game == TELA_INICIAL:
+        if estado == TELA_INICIAL:
             TELA.fill(BLACK)
 
             TELA.blit(assets['background'], ORIGEM)
@@ -40,7 +40,7 @@ def tela_inicial (TELA):
 
             pygame.display.update()
         
-        elif game == INSTRUCOES:
+        elif estado == INSTRUCOES:
             TELA.fill(BLACK)
 
             TELA.blit(assets['background'], ORIGEM)
@@ -57,4 +57,4 @@ def tela_inicial (TELA):
 
             pygame.display.update()
 
-    return GAME
+    return estado

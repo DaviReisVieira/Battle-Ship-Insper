@@ -1,68 +1,73 @@
 import pygame
 import assets as assets_file
-from config import WIDTH, HEIGHT, BLACK
+from config import WIDTH, HEIGHT, BLACK, FPS, ORIGEM
 
 pygame.init()
 
 # Resolução da Tela
-window = pygame.display.set_mode((WIDTH, HEIGHT))
+TELA = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Space Battle')
 lastFlick = 0
 
 QUIT = 0
 TELA_INICIAL = 1
 INSTRUCOES = 2
+GAME = 3
+TELA_FINAL = 4
 
+WIN = 2
 
 assets = assets_file.load_assets()
 
-game = TELA_INICIAL
-
 clock = pygame.time.Clock()
+game = TELA_FINAL
+last_flick = 0  # Press Any Key piscando
 
-while game != QUIT:
-    clock.tick(30)
-      
+while game != QUIT and game != GAME:
+    clock.tick(FPS)
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game = QUIT
-        if event.type == pygame.KEYDOWN:
-            game = INSTRUCOES
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+            game = GAME
 
-                
-    if game == TELA_INICIAL:
-        window.fill(BLACK)
+    if game == TELA_FINAL and WIN == 1:
+        TELA.fill(BLACK)
 
-        window.blit(assets['background'], (0,0))
-        
-        window.blit(assets['Letreiro'], (0,0))
+        TELA.blit(assets['background'], ORIGEM)
 
-        if lastFlick < 30:
-            window.blit(assets['PressKey'], (0,0))
+        TELA.blit(assets['TelaFinal'], ORIGEM)
+
+        TELA.blit(assets['Player1Win'],ORIGEM)
+
+        if lastFlick < FPS:
+            TELA.blit(assets['PressSpace'], ORIGEM)
             lastFlick += 1
-        elif lastFlick == 59:
+        elif lastFlick == FPS*2-1:
             lastFlick = 0
         else:
             lastFlick += 1
 
-        pygame.display.update()
-    
-    elif game == INSTRUCOES:
-        window.fill(BLACK)
+    if game == TELA_FINAL and WIN == 2:
 
-        window.blit(assets['background'], (0,0))
-        
-        window.blit(assets['Instrucoes'], (0,0))
+        TELA.fill(BLACK)
 
-        if lastFlick < 30:
-            window.blit(assets['PressKey'], (0,0))
+        TELA.blit(assets['background'], ORIGEM)
+
+        TELA.blit(assets['TelaFinal'], ORIGEM)
+
+        TELA.blit(assets['Player2Win'],ORIGEM)
+
+        if lastFlick < FPS:
+            TELA.blit(assets['PressSpace'], ORIGEM)
             lastFlick += 1
-        elif lastFlick == 59:
+        elif lastFlick == FPS*2-1:
             lastFlick = 0
         else:
             lastFlick += 1
 
-        pygame.display.update()
+    pygame.display.update()
 
 
 pygame.quit()

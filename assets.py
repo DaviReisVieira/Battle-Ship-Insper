@@ -6,11 +6,19 @@ pygame.init()
 
 def load_assets():
     assets = {}
+
+    # ------ Imagens para o Fundo:
     assets['background'] = pygame.image.load('resources/img/background.png').convert_alpha()
     assets['background'] = pygame.transform.scale(assets['background'], (WIDTH,HEIGHT))
     assets['Letreiro'] = pygame.image.load('resources/img/TelaInicialLetreiro.png').convert_alpha()
     assets['Instrucoes'] = pygame.image.load('resources/img/TelaInicialInstrucoes.png').convert_alpha()
     assets['PressKey'] = pygame.image.load('resources/img/TelaInicialPressKey.png').convert_alpha()
+    assets['TelaFinal'] = pygame.image.load('resources/img/TelaFinalDivisao.png').convert_alpha()
+    assets['PressSpace'] = pygame.image.load('resources/img/TelaFinalPressSpace.png').convert_alpha()
+    assets['Player1Win'] = pygame.image.load('resources/img/TelaFinalPlayer1Win.png').convert_alpha()
+    assets['Player2Win'] = pygame.image.load('resources/img/TelaFinalPlayer2Win.png').convert_alpha()
+
+    # ------- Imagens para o jogo:
     assets['asteroids'] = pygame.image.load('resources/img/asteroid.png').convert_alpha()
     assets['asteroids'] = pygame.transform.scale(assets['asteroids'], (ASTEROID_WIDTH,ASTEROID_HEIGHT))
     assets['ship1'] = pygame.image.load('resources/img/ship1.png').convert_alpha()
@@ -21,4 +29,6 @@ def load_assets():
     assets['ship2'] = pygame.transform.rotate(assets['ship2'], 90)
     assets['laser1'] = pygame.image.load('resources/img/bullet1.png').convert_alpha()
     assets['laser2'] = pygame.image.load('resources/img/bullet2.png').convert_alpha()
+    assets['explosion'] = pygame.image.load('resources/img/explosion_sheet.png').convert_alpha()
+
     return assets

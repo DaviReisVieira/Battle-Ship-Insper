@@ -1,4 +1,4 @@
-<img src="icon.png" align="right" />
+<img src="resources/img/icon.png" align="right" />
 
 # Space Battle-Insper [![Repositório](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/DaviReisVieira/Space-Battle-Insper)
 > Um jogo em Python para o Projeto Final de Design de Software
