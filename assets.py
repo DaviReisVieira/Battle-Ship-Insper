@@ -6,7 +6,7 @@ pygame.init()
 
 def load_assets():
     assets = {}
-    assets['background'] = pygame.image.load('resources/img/background.png').convert()
+    assets['background'] = pygame.image.load('resources/img/background.png').convert_alpha()
     assets['background'] = pygame.transform.scale(assets['background'], (WIDTH,HEIGHT))
     assets['Letreiro'] = pygame.image.load('resources/img/TelaInicialLetreiro.png').convert_alpha()
     assets['PressKey'] = pygame.image.load('resources/img/TelaInicialPressKey.png').convert_alpha()
@@ -18,4 +18,5 @@ def load_assets():
     assets['ship2'] = pygame.image.load('resources/img/ship2.png').convert_alpha()
     assets['ship2'] = pygame.transform.scale(assets['ship2'], (SHIP_SIZE, SHIP_SIZE))
     assets['ship2'] = pygame.transform.rotate(assets['ship2'], 90)
+    assets['laser'] = pygame.image.load('resources/img/bullet.png').convert_alpha()
     return assets
