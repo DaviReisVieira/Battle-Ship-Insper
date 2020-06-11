@@ -1,4 +1,9 @@
+# ------ Gerando caminho para bibliotecas
+import sys
 import pygame
+sys.path.insert(1, 'resources/config')
+sys.path.insert(1, 'resources/telas')
+# ------ Importando bibliotecas
 from TelaInicial import tela_inicial
 from TelaJogo import tela_jogo
 from TelaFinal import tela_final
@@ -9,9 +14,10 @@ pygame.init()
 
 # ------ Gera a Tela de jogo
 TELA = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption('Battle Ship')
+pygame.display.set_caption('Battle Ship - O Retono aoo Presencial')
+pygame.display.set_icon(pygame.image.load('resources/img/gameicon.png'))
 
-#===== Rotina principal o jogo:
+# ====== Rotina principal o jogo: =========
 estado = TELA_INICIAL
 resultado = 0
 vitoria = 0

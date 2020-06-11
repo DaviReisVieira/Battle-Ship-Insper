@@ -27,21 +27,7 @@ def load_spritesheet(spritesheet, rows, columns):
 
 class Asteroides(pygame.sprite.Sprite):
     def __init__(self, assets):
-
         pygame.sprite.Sprite.__init__(self)
-        explosion_sheet = assets['explosion']
-        explosion_sheet = pygame.transform.scale(explosion_sheet, (640, 640))
-        spritesheet = load_spritesheet(explosion_sheet, 4, 4)
-        self.animations = {
-            EXPLOSION: spritesheet[0:16]
-        }
-        self.state = EXPLOSION
-        self.animation = self.animations[self.state]
-        self.frame = 0
-        self.expl = self.animation[self.frame]
-        self.rect = self.expl.get_rect()
-        self.last_update = pygame.time.get_ticks()
-        self.frame_ticks = 170
 
         self.image = assets['asteroids']
         self.rect = self.image.get_rect()
@@ -50,14 +36,6 @@ class Asteroides(pygame.sprite.Sprite):
         self.speedy = random.randint(9, 12)
 
     def update(self):
-        now = pygame.time.get_ticks()
-        elapsed_ticks = now - self.last_update
-        if elapsed_ticks > self.frame_ticks:
-            self.last_update = now
-            self.frame += 1
-            self.animation = self.animations[self.state]
-            if self.frame >= len(self.animation):
-                self.frame = 0
 
         self.rect.y += self.speedy
 
@@ -120,5 +98,36 @@ class Ship(pygame.sprite.Sprite):
             self.groups['all_sprites'].add(new_laser_2)
             self.groups['all_lasers_1'].add(new_laser_1)
             self.groups['all_lasers_2'].add(new_laser_2)
+
+class Explode(pygame.sprite.Sprite):
+    def __init__(self, assets, center):
+        pygame.sprite.Sprite.__init__(self)
+
+        self.explosion = assets['explosion']
+
+        self.frame = 0
+        self.image = self.explosion[self.frame]
+        self.rect = self.image.get_rect()
+        self.rect.center = center
+
+        self.last = pygame.time.get_ticks()
+
+    def update(self):
+
+        now = pygame.time.get_ticks()
+
+        elapsed_ticks = now - self.last
+
+        if elapsed_ticks > FRAME_TICKS:
+            self.last = now
+            self.frame += 1
+
+            if self.frame == len(self.explosion):
+                self.kill()
+            else:
+                center = self.rect.center
+                self.image = self.explosion[self.frame]
+                self.rect = self.image.get_rect()
+                self.rect.center = center
 
 
