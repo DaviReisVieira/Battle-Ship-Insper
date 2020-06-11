@@ -15,7 +15,7 @@ INSTRUCOES = 2
 GAME = 3
 TELA_FINAL = 4
 
-WIN = 2
+WIN = 1
 
 assets = assets_file.load_assets()
 

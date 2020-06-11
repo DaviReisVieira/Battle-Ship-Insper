@@ -22,3 +22,10 @@ TELA_INICIAL = 1
 INSTRUCOES = 2
 GAME = 3
 TELA_FINAL = 4
+
+## players:
+PLAYER_1 = 1
+PLAYER_2 = 2
+
+# número de asteroides:
+NUMERO_ASTEROIDES = 7
