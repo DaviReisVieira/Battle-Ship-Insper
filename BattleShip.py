@@ -14,7 +14,7 @@ pygame.init()
 
 # ------ Gera a Tela de jogo
 TELA = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption('Battle Ship - O Retono aoo Presencial')
+pygame.display.set_caption('Battle Ship - O Retono ao Presencial')
 pygame.display.set_icon(pygame.image.load('resources/img/gameicon.png'))
 
 # ====== Rotina principal o jogo: =========

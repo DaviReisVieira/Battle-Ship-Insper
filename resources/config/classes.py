@@ -30,10 +30,12 @@ class Asteroides(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         self.image = assets['asteroids']
+        self.random =random.randint(45,75)
+        self.image = pygame.transform.scale(self.image, (self.random,self.random))
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(SHIP_AREA, WIDTH-ASTEROID_WIDTH-SHIP_AREA)
-        self.rect.y = random.randint(-100, -ASTEROID_HEIGHT)
-        self.speedy = random.randint(9, 12)
+        self.rect.y = random.randint(-820, -100)
+        self.speedy = random.randint(4, 5)
 
     def update(self):
 
@@ -42,7 +44,8 @@ class Asteroides(pygame.sprite.Sprite):
         if self.rect.top > HEIGHT:
             self.rect.x = random.randint(SHIP_AREA, WIDTH - ASTEROID_WIDTH-SHIP_AREA)
             self.rect.y = random.randint(-100, -ASTEROID_HEIGHT)
-            self.speedy = random.randint(9, 12)
+            self.speedy = random.randint(4, 5)
+            self.image = pygame.transform.scale(self.image, (self.random,self.random))
 
 
 class Laser(pygame.sprite.Sprite):
@@ -70,7 +73,9 @@ class Ship(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.centery = int(HEIGHT/2)
         self.rect.x = posx
+        self.speedx = 0
         self.speedy = 0
+        self.player = ship_player
         self.groups = groups
         self.assets = assets
     
@@ -78,8 +83,19 @@ class Ship(pygame.sprite.Sprite):
         self.shoot_ticks = 500
 
     def update(self):
+        self.rect.x += self.speedx
         self.rect.y += self.speedy
 
+
+        if self.rect.x > WIDTH-SHIP_SIZE:
+            self.rect.x = WIDTH-SHIP_SIZE
+        if self.rect.x < 0:
+            self.rect.x = 0
+        if self.player == 'ship1' and self.rect.x > int(WIDTH/2) - SHIP_SIZE:
+            self.rect.x = int(WIDTH/2)-SHIP_SIZE
+        if self.player == 'ship2' and self.rect.x < int(WIDTH/2) + SHIP_SIZE:
+            self.rect.x = int(WIDTH/2)+SHIP_SIZE
+        
         if self.rect.y > HEIGHT-SHIP_SIZE:
             self.rect.y = HEIGHT-SHIP_SIZE
         if self.rect.y < 0:

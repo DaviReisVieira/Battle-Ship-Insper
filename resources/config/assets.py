@@ -19,7 +19,10 @@ def load_assets():
     assets['Player2Win'] = pygame.image.load('resources/img/TelaFinalPlayer2Win.png').convert_alpha()
 
     # ------- Imagens para o jogo:
-    assets['asteroids'] = pygame.image.load('resources/img/asteroid_corona.png').convert_alpha()
+    if CORONA:
+        assets['asteroids'] = pygame.image.load('resources/img/asteroid_corona.png').convert_alpha()
+    else:
+        assets['asteroids'] = pygame.image.load('resources/img/asteroid.png').convert_alpha()
     assets['asteroids'] = pygame.transform.scale(assets['asteroids'], (ASTEROID_WIDTH,ASTEROID_HEIGHT))
     assets['ship1'] = pygame.image.load('resources/img/ship1.png').convert_alpha()
     assets['ship1'] = pygame.transform.scale(assets['ship1'], (SHIP_SIZE, SHIP_SIZE))

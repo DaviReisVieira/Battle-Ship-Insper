@@ -50,6 +50,10 @@ def tela_jogo(TELA):
                     player_1.speedy -= SHIP_SPEED
                 if event.key == pygame.K_s:
                     player_1.speedy += SHIP_SPEED
+                if event.key == pygame.K_a:
+                    player_1.speedx -= SHIP_SPEED
+                if event.key == pygame.K_d:
+                    player_1.speedx += SHIP_SPEED
                 if event.key == pygame.K_SPACE:
                     player_1.shoot()
 
@@ -58,6 +62,10 @@ def tela_jogo(TELA):
                     player_2.speedy -= SHIP_SPEED
                 if event.key == pygame.K_DOWN:
                     player_2.speedy += SHIP_SPEED
+                if event.key == pygame.K_LEFT:
+                    player_2.speedx -= SHIP_SPEED
+                if event.key == pygame.K_RIGHT:
+                    player_2.speedx += SHIP_SPEED
                 if event.key == pygame.K_RETURN:
                     player_2.shoot()
 
@@ -68,12 +76,20 @@ def tela_jogo(TELA):
                     player_1.speedy += SHIP_SPEED
                 if event.key == pygame.K_s:
                     player_1.speedy -= SHIP_SPEED
+                if event.key == pygame.K_a:
+                    player_1.speedx += SHIP_SPEED
+                if event.key == pygame.K_d:
+                    player_1.speedx -= SHIP_SPEED
 
                 #Player 2
                 if event.key == pygame.K_UP:
                     player_2.speedy += SHIP_SPEED
                 if event.key == pygame.K_DOWN:
                     player_2.speedy -= SHIP_SPEED
+                if event.key == pygame.K_LEFT:
+                    player_2.speedx += SHIP_SPEED
+                if event.key == pygame.K_RIGHT:
+                    player_2.speedx -= SHIP_SPEED
                 
         all_sprites.update()
         
