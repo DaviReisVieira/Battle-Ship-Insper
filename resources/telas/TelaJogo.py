@@ -31,6 +31,7 @@ def tela_jogo(TELA):
         all_sprites.add(asteroid)
         all_asteroids.add(asteroid)
         
+    lista_Sprites = [all_sprites,all_asteroids,all_lasers_1,all_lasers_2]
     estado = GAME
     delta_tempo = 0
     clock = pygame.time.Clock()
@@ -78,58 +79,58 @@ def tela_jogo(TELA):
         
 
         if estado == GAME:
-            # para o player 1
-            hits1 = pygame.sprite.groupcollide(all_asteroids, all_lasers_1, True, True)
-            for asteroid in hits1:
-                a = Asteroides(assets)
-                all_sprites.add(a)
-                all_asteroids.add(a)
+            # -------- player 1:
+            hits_asteroid_laser_1 = pygame.sprite.groupcollide(all_asteroids, all_lasers_1, True, True)
+            for asteroid in hits_asteroid_laser_1:
+                novo_asteroid = Asteroides(assets)
+                all_sprites.add(novo_asteroid)
+                all_asteroids.add(novo_asteroid)
 
-                explode1 = Explode(assets, asteroid.rect.center)
-                all_sprites.add(explode1)
+                explode_asteroid = Explode(assets, asteroid.rect.center)
+                all_sprites.add(explode_asteroid)
 
-            hits2 = pygame.sprite.spritecollide(player_1, all_asteroids, True)
-            if hits2:
-                explode2 = Explode(assets, player_1.rect.center)
-                all_sprites.add(explode2)
+            hits_player_1_asteroid = pygame.sprite.spritecollide(player_1, all_asteroids, True)
+            if hits_player_1_asteroid:
+                explode_player_1 = Explode(assets, player_1.rect.center)
+                all_sprites.add(explode_player_1)
                 player_1.kill()
                 estado = EXPLODING 
                 vitoria = PLAYER_2
                 tick_explosao = pygame.time.get_ticks()
                 
-            hits3 = pygame.sprite.spritecollide(player_1, all_lasers_2, True)
-            if hits3:
-                explode3 = Explode(assets, player_1.rect.center)
-                all_sprites.add(explode3)
+            hits_player_1_laser_2 = pygame.sprite.spritecollide(player_1, all_lasers_2, True)
+            if hits_player_1_laser_2:
+                explode_player_1 = Explode(assets, player_1.rect.center)
+                all_sprites.add(explode_player_1)
                 player_1.kill()
                 estado = EXPLODING
                 vitoria = PLAYER_2
                 tick_explosao = pygame.time.get_ticks()
 
 
-            # para o player 2
-            hits4 = pygame.sprite.groupcollide(all_asteroids, all_lasers_2, True, True)
-            for asteroid in hits4:
-                a = Asteroides(assets)
-                all_sprites.add(a)
-                all_asteroids.add(a)
+            # ------- player 2
+            hits_asteroid_laser_2 = pygame.sprite.groupcollide(all_asteroids, all_lasers_2, True, True)
+            for asteroid in hits_asteroid_laser_2:
+                novo_asteroid = Asteroides(assets)
+                all_sprites.add(novo_asteroid)
+                all_asteroids.add(novo_asteroid)
 
-                explode4 = Explode(assets, asteroid.rect.center)
-                all_sprites.add(explode4)
+                explode_asteroid = Explode(assets, asteroid.rect.center)
+                all_sprites.add(explode_asteroid)
 
-            hits5 = pygame.sprite.spritecollide(player_2, all_asteroids, True)
-            if hits5:
-                explode5 = Explode(assets, player_2.rect.center)
-                all_sprites.add(explode5)
+            hits_player_2_asteroid = pygame.sprite.spritecollide(player_2, all_asteroids, True)
+            if hits_player_2_asteroid:
+                explode_player_2 = Explode(assets, player_2.rect.center)
+                all_sprites.add(explode_player_2)
                 player_2.kill()
                 estado = EXPLODING
                 vitoria = PLAYER_1
                 tick_explosao = pygame.time.get_ticks()
                 
-            hits6 = pygame.sprite.spritecollide(player_2, all_lasers_1, True)
-            if hits6:
-                explode6 = Explode(assets, player_2.rect.center)
-                all_sprites.add(explode6)
+            hits_player_2_laser_1 = pygame.sprite.spritecollide(player_2, all_lasers_1, True)
+            if hits_player_2_laser_1:
+                explode_player_2 = Explode(assets, player_2.rect.center)
+                all_sprites.add(explode_player_2)
                 player_2.kill()
                 estado = EXPLODING 
                 vitoria = PLAYER_1
