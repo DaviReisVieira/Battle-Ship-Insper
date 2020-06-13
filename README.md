@@ -26,7 +26,7 @@ Projeto Final de Design de Software 2020.1 - 1C
 - [x] Realização do Background
 - [x] Adicionando asteróides
 - [x] Adicionando naves
-- [ ] Adicionar física de colisão
+- [x] Adicionar física de colisão
 - [x] Criar Menu 
 
 ## Descrição

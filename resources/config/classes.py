@@ -24,22 +24,92 @@ def load_spritesheet(spritesheet, rows, columns):
             
     return sprites
 
-
-class Asteroides(pygame.sprite.Sprite):
+class Star(pygame.sprite.Sprite):
     def __init__(self, assets):
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = assets['asteroids']
-        self.random =random.randint(45,75)
-        self.image = pygame.transform.scale(self.image, (self.random,self.random))
+        self.image = assets['star']
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
-        self.rect.x = random.randint(SHIP_AREA, WIDTH-ASTEROID_WIDTH-SHIP_AREA)
-        self.rect.y = random.randint(-820, -100)
-        self.speedy = random.randint(4, 5)
+        self.rect.x = random.randint(SHIP_AREA, WIDTH-ASTEROID_WIDTH-SHIP_AREA) # ajeitar
+        self.rect.y = random.randint(-820, -100) # ajeitar
+        self.speedy = ITEM_SPEED
 
     def update(self):
 
         self.rect.y += self.speedy
+
+        if self.rect.top > HEIGHT:
+            self.rect.x = random.randint(SHIP_AREA, WIDTH - ASTEROID_WIDTH-SHIP_AREA) # ajeitar
+            self.rect.y = random.randint(-100, -ASTEROID_HEIGHT) # ajeitar
+            self.speedy = self.speedy
+
+class Speed(pygame.sprite.Sprite):
+    def __init__(self, assets):
+        pygame.sprite.Sprite.__init__(self)
+
+        self.image = assets['speed']
+        self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect()
+        self.rect.x = random.randint(SHIP_AREA, WIDTH-ASTEROID_WIDTH-SHIP_AREA) # ajeitar
+        self.rect.y = random.randint(-820, -100) # ajeitar
+        self.speedy = ITEM_SPEED
+
+    def update(self):
+
+        self.rect.y += self.speedy
+
+        if self.rect.top > HEIGHT:
+            self.rect.x = random.randint(SHIP_AREA, WIDTH - ASTEROID_WIDTH-SHIP_AREA) # ajeitar
+            self.rect.y = random.randint(-100, -ASTEROID_HEIGHT) # ajeitar
+            self.speedy = self.speedy
+
+class Size(pygame.sprite.Sprite):
+    def __init__(self, assets):
+        pygame.sprite.Sprite.__init__(self)
+
+        self.image = assets['size']
+        self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect()
+        self.rect.x = random.randint(SHIP_AREA, WIDTH-ASTEROID_WIDTH-SHIP_AREA) # ajeitar
+        self.rect.y = random.randint(-820, -100) # ajeitar
+        self.speedy = ITEM_SPEED
+
+    def update(self):
+
+        self.rect.y += self.speedy
+
+        if self.rect.top > HEIGHT:
+            self.rect.x = random.randint(SHIP_AREA, WIDTH - ASTEROID_WIDTH-SHIP_AREA) # ajeitar
+            self.rect.y = random.randint(-100, -ASTEROID_HEIGHT) # ajeitar
+            self.speedy = self.speedy
+            
+class Asteroides(pygame.sprite.Sprite):
+    def __init__(self, assets):
+        pygame.sprite.Sprite.__init__(self)
+
+        if CORONA:
+            imagem_asteroide = assets['asteroids']
+        else:
+            imagem_asteroide = assets['asteroids'][random.randint(0,3)]
+
+        self.image = imagem_asteroide
+        self.random =random.randint(75,125)
+        self.original_image = pygame.transform.scale(self.image, (self.random,self.random))
+        self.image = self.original_image
+        self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect()
+        self.rect.x = random.randint(SHIP_AREA, WIDTH-ASTEROID_WIDTH-SHIP_AREA)
+        self.rect.y = random.randint(-820, -100)
+        self.speedy = random.randint(4, 5)
+        #self.rotate = 0
+
+    def update(self):
+
+        self.rect.y += self.speedy
+        #self.image = pygame.transform.rotate(self.original_image,self.rotate)
+        #self.rotate += 1%360
+        
 
         if self.rect.top > HEIGHT:
             self.rect.x = random.randint(SHIP_AREA, WIDTH - ASTEROID_WIDTH-SHIP_AREA)
@@ -53,6 +123,7 @@ class Laser(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         self.image = assets[laser_player]
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
         self.rect.centery = centery
         self.rect.x = posx
@@ -60,7 +131,7 @@ class Laser(pygame.sprite.Sprite):
     def update(self):
         self.rect.x += self.speedx
 
-        if self.rect.x > WIDTH-SHIP_SIZE or self.rect.x < 0:
+        if self.rect.x > WIDTH or self.rect.x < 0:
             self.kill()
 
 
@@ -70,6 +141,7 @@ class Ship(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         self.image = assets[ship_player]
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
         self.rect.centery = int(HEIGHT/2)
         self.rect.x = posx
@@ -108,12 +180,14 @@ class Ship(pygame.sprite.Sprite):
         if elapsed_ticks > self.shoot_ticks:
             self.last_shot = now
 
-            new_laser_1 = Laser(self.assets,'laser1', self.rect.centery, self.rect.x, 20)
-            new_laser_2 = Laser(self.assets,'laser2', self.rect.centery, self.rect.x, -20)
-            self.groups['all_sprites'].add(new_laser_1)
-            self.groups['all_sprites'].add(new_laser_2)
-            self.groups['all_lasers_1'].add(new_laser_1)
-            self.groups['all_lasers_2'].add(new_laser_2)
+            if self.player == 'ship1':
+                new_laser_1 = Laser(self.assets,'laser1', self.rect.centery, self.rect.x, LASER_SPEED)
+                self.groups['all_sprites'].add(new_laser_1)
+                self.groups['all_lasers_1'].add(new_laser_1)
+            if self.player == 'ship2':
+                new_laser_2 = Laser(self.assets,'laser2', self.rect.centery, self.rect.x, -LASER_SPEED)
+                self.groups['all_sprites'].add(new_laser_2)
+                self.groups['all_lasers_2'].add(new_laser_2)            
 
 class Explode(pygame.sprite.Sprite):
     def __init__(self, assets, center):
