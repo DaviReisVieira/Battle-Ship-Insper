@@ -58,6 +58,7 @@ def load_assets():
     assets['size'] = pygame.image.load('resources/img/PowerSize.png').convert_alpha()
     assets['size'] = pygame.transform.scale(assets['size'], (POWERUP_SIZE,POWERUP_SIZE))
     assets['heart'] = pygame.image.load('resources/img/Vida.png').convert_alpha()
+    assets['heart'] = pygame.transform.scale(assets['heart'], (HEART_SIZE,HEART_SIZE))
     explosion = []
     for e in range(NUMERO_FRAMES):
         file = 'resources/img/regularExplosion0{}.png'.format(e)

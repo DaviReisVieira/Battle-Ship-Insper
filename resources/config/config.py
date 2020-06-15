@@ -35,6 +35,10 @@ PLAYER_2 = 2
 ## Power ups:
 STAR_TIME = 10000
 
+## vidas:
+NUMERO_VIDAS = 3
+HEART_SIZE = 30
+
 # número de asteroides:
 IMAGEM_ASTEROIDES = 4
 NUMERO_ASTEROIDES = 12

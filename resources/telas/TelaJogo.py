@@ -46,14 +46,14 @@ def tela_jogo(TELA):
     score_player_1 = 0
     score_player_2 = 0
 
-    #player_1_lives = 3
-    #player_2_lives = 3
+    player_1_lives = NUMERO_VIDAS
+    player_2_lives = NUMERO_VIDAS
 
     star_player_1 = False
     star_player_2 = False
 
-    #player_1_dead = False
-    #player_2_dead = False
+    player_1_dead = False
+    player_2_dead = False
     
     clock = pygame.time.Clock()
 
@@ -191,9 +191,9 @@ def tela_jogo(TELA):
                     #assets['explosion_sound'].play()
                     player_1.kill()
                     estado = EXPLODING 
-                    vitoria = PLAYER_2
-                    #player_1_dead = True
-                    #player_1_lives -= 1
+                    
+                    player_1_dead = True
+                    player_1_lives -= 1
                     tick_explosao = pygame.time.get_ticks()
                     
                 hits_player_1_laser_2 = pygame.sprite.spritecollide(player_1, all_lasers_2, True, pygame.sprite.collide_mask)
@@ -203,9 +203,8 @@ def tela_jogo(TELA):
                     #assets['explosion_sound'].play()
                     player_1.kill()
                     estado = EXPLODING
-                    vitoria = PLAYER_2
-                    #player_1_dead = True
-                    #player_1_lives -=1
+                    player_1_dead = True
+                    player_1_lives -=1
                     tick_explosao = pygame.time.get_ticks()
 
 
@@ -281,9 +280,9 @@ def tela_jogo(TELA):
                     #assets['explosion_sound'].play()
                     player_2.kill()
                     estado = EXPLODING
-                    vitoria = PLAYER_1
-                    #player_2_dead = True
-                    #player_2_lives -= 1
+                    
+                    player_2_dead = True
+                    player_2_lives -= 1
                     tick_explosao = pygame.time.get_ticks()
                     
                 hits_player_2_laser_1 = pygame.sprite.spritecollide(player_2, all_lasers_1, True, pygame.sprite.collide_mask)
@@ -294,16 +293,14 @@ def tela_jogo(TELA):
     
                     player_2.kill()
                     estado = EXPLODING 
-                    vitoria = PLAYER_1
-                    #player_2_dead = True
-                    #player_2_lives -=1
+                    player_2_dead = True
+                    player_2_lives -=1
                     tick_explosao = pygame.time.get_ticks()
         
         elif estado == EXPLODING:
             agora = pygame.time.get_ticks()
             if agora - tick_explosao > DURACAO_EXPLOSAO:
-                estado = TELA_FINAL
-                """
+                #estado = TELA_FINAL
                 if player_1_dead:
                     if player_1_lives == 0:
                         estado = TELA_FINAL
@@ -315,6 +312,7 @@ def tela_jogo(TELA):
                         all_sprites.add(player_1)
                         all_sprites.add(player_2)
                         player_1_dead = False
+                        estado = GAME
                 
                 if player_2_dead:
                     if player_2_lives == 0:
@@ -327,7 +325,7 @@ def tela_jogo(TELA):
                         all_sprites.add(player_1)
                         all_sprites.add(player_2)
                         player_2_dead = False
-                        """
+                        estado = GAME
 
         else:
             estado = TELA_FINAL
@@ -337,6 +335,14 @@ def tela_jogo(TELA):
         TELA.blit(assets['background'], ORIGEM)
 
         all_sprites.draw(TELA)
+
+        if player_1_lives > 0:
+            for lives in range(player_1_lives):
+                TELA.blit(assets['heart'],(20+35*lives,HEIGHT-50))
+
+        if player_2_lives > 0:
+            for lives in range(player_2_lives):
+                TELA.blit(assets['heart'],(WIDTH-55-35*lives,HEIGHT-50))
 
         pygame.display.update()
 

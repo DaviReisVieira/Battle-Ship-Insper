@@ -53,7 +53,7 @@ O jogo tem como objetivo destruir o oponente.
 1. Clone o repositório:
 
     ```
-    git clone https://github.com/DaviReisVieira/Space-Battle-Insper
+    git clone https://github.com/DaviReisVieira/Battle-Ship-Insper
     ```
 
 2. Execute o comando python BattleShip.py

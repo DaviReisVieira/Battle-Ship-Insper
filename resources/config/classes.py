@@ -162,6 +162,7 @@ class Ship(pygame.sprite.Sprite):
         self.last_shot = pygame.time.get_ticks()
         self.shoot_ticks = 500
 
+
     def update(self):
         self.rect.x += self.speedx
         self.rect.y += self.speedy
@@ -251,3 +252,4 @@ class Explode(pygame.sprite.Sprite):
                 self.rect.center = center
 
 
+()
