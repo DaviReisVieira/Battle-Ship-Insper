@@ -67,6 +67,8 @@ def load_assets():
         explosion.append(img)
     assets['explosion'] = explosion
 
+    assets['font_score'] = pygame.font.Font('resources/font/TimeandSpace-Regular.ttf', 70)
+
     # carrega sons
     pygame.mixer.music.load('resources/sounds/background_music.mp3')
     pygame.mixer.music.set_volume(0.4)

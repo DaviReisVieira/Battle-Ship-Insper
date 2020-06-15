@@ -344,6 +344,16 @@ def tela_jogo(TELA):
             for lives in range(player_2_lives):
                 TELA.blit(assets['heart'],(WIDTH-55-35*lives,HEIGHT-50))
 
+        text_surface = assets['font_score'].render("{:07d}".format(score_player_1), True, WHITE)
+        text_rect = text_surface.get_rect()
+        text_rect.midtop = (WIDTH / 4,  5)
+        TELA.blit(text_surface, text_rect)    
+
+        text_surface = assets['font_score'].render("{:07d}".format(score_player_2), True, WHITE)
+        text_rect = text_surface.get_rect()
+        text_rect.midtop = (3*WIDTH / 4,  5)
+        TELA.blit(text_surface, text_rect)   
+
         pygame.display.update()
 
     resultado = [estado, vitoria]
