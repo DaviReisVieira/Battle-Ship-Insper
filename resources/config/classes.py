@@ -6,6 +6,7 @@ from config import *
 
 
 pygame.init()
+pygame.mixer.init()
 
 def load_spritesheet(spritesheet, rows, columns):
     sprite_width = spritesheet.get_width() // columns
@@ -25,64 +26,67 @@ def load_spritesheet(spritesheet, rows, columns):
     return sprites
 
 class Star(pygame.sprite.Sprite):
-    def __init__(self, assets):
+    def __init__(self, assets, player):
         pygame.sprite.Sprite.__init__(self)
-
+        
         self.image = assets['star']
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
-        self.rect.x = random.randint(SHIP_AREA, WIDTH-ASTEROID_WIDTH-SHIP_AREA) # ajeitar
+        if player == PLAYER_1:
+            self.rect.x = random.randint(SHIP_AREA, WIDTH/2-SHIP_SIZE) # ajeitar
+        else:
+            self.rect.x = random.randint(WIDTH/2+SHIP_SIZE, WIDTH-SHIP_AREA) # ajeitar
         self.rect.y = random.randint(-820, -100) # ajeitar
-        self.speedy = ITEM_SPEED
+        self.speedy = POWERUP_SPEED
 
     def update(self):
 
         self.rect.y += self.speedy
 
         if self.rect.top > HEIGHT:
-            self.rect.x = random.randint(SHIP_AREA, WIDTH - ASTEROID_WIDTH-SHIP_AREA) # ajeitar
-            self.rect.y = random.randint(-100, -ASTEROID_HEIGHT) # ajeitar
-            self.speedy = self.speedy
+            self.kill()
 
 class Speed(pygame.sprite.Sprite):
-    def __init__(self, assets):
+    def __init__(self, assets, player):
         pygame.sprite.Sprite.__init__(self)
 
         self.image = assets['speed']
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
-        self.rect.x = random.randint(SHIP_AREA, WIDTH-ASTEROID_WIDTH-SHIP_AREA) # ajeitar
+        if player == PLAYER_1:
+            self.rect.x = random.randint(SHIP_AREA, WIDTH/2-SHIP_SIZE) # ajeitar
+        else:
+            self.rect.x = random.randint(WIDTH/2+SHIP_SIZE, WIDTH-SHIP_AREA) # ajeitar
         self.rect.y = random.randint(-820, -100) # ajeitar
-        self.speedy = ITEM_SPEED
+        self.speedy = POWERUP_SPEED
 
     def update(self):
 
         self.rect.y += self.speedy
 
         if self.rect.top > HEIGHT:
-            self.rect.x = random.randint(SHIP_AREA, WIDTH - ASTEROID_WIDTH-SHIP_AREA) # ajeitar
-            self.rect.y = random.randint(-100, -ASTEROID_HEIGHT) # ajeitar
-            self.speedy = self.speedy
+            self.kill()
 
 class Size(pygame.sprite.Sprite):
-    def __init__(self, assets):
+    def __init__(self, assets, player):
         pygame.sprite.Sprite.__init__(self)
 
         self.image = assets['size']
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
-        self.rect.x = random.randint(SHIP_AREA, WIDTH-ASTEROID_WIDTH-SHIP_AREA) # ajeitar
+        if player == PLAYER_1:
+            self.rect.x = random.randint(SHIP_AREA, WIDTH/2-SHIP_SIZE) # ajeitar
+        else:
+            self.rect.x = random.randint(WIDTH/2+SHIP_SIZE, WIDTH-SHIP_AREA) # ajeitar
         self.rect.y = random.randint(-820, -100) # ajeitar
-        self.speedy = ITEM_SPEED
+        self.speedy = POWERUP_SPEED
 
     def update(self):
 
         self.rect.y += self.speedy
 
         if self.rect.top > HEIGHT:
-            self.rect.x = random.randint(SHIP_AREA, WIDTH - ASTEROID_WIDTH-SHIP_AREA) # ajeitar
-            self.rect.y = random.randint(-100, -ASTEROID_HEIGHT) # ajeitar
-            self.speedy = self.speedy
+            self.kill()
             
 class Asteroides(pygame.sprite.Sprite):
     def __init__(self, assets):
@@ -119,20 +123,23 @@ class Asteroides(pygame.sprite.Sprite):
 
 
 class Laser(pygame.sprite.Sprite):
-    def __init__(self, assets,laser_player, centery, posx, vx):
+    def __init__(self, assets, laser_player, centery, posx, vx, scale):
         pygame.sprite.Sprite.__init__(self)
 
         self.image = assets[laser_player]
+        self.image = pygame.transform.scale(self.image, (int(LASER_SIZE*scale), int(LASER_SIZE*scale)))
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
         self.rect.centery = centery
         self.rect.x = posx
         self.speedx = vx
+
     def update(self):
         self.rect.x += self.speedx
 
         if self.rect.x > WIDTH or self.rect.x < 0:
             self.kill()
+
 
 
 
@@ -150,6 +157,7 @@ class Ship(pygame.sprite.Sprite):
         self.player = ship_player
         self.groups = groups
         self.assets = assets
+        self.scale = 1
     
         self.last_shot = pygame.time.get_ticks()
         self.shoot_ticks = 500
@@ -181,13 +189,35 @@ class Ship(pygame.sprite.Sprite):
             self.last_shot = now
 
             if self.player == 'ship1':
-                new_laser_1 = Laser(self.assets,'laser1', self.rect.centery, self.rect.x, LASER_SPEED)
+                new_laser_1 = Laser(self.assets,'laser1', self.rect.centery, self.rect.x, LASER_SPEED, self.scale)
                 self.groups['all_sprites'].add(new_laser_1)
                 self.groups['all_lasers_1'].add(new_laser_1)
+                #self.assets['laser1_sound'].play()
+
             if self.player == 'ship2':
-                new_laser_2 = Laser(self.assets,'laser2', self.rect.centery, self.rect.x, -LASER_SPEED)
+                new_laser_2 = Laser(self.assets,'laser2', self.rect.centery, self.rect.x, -LASER_SPEED, self.scale)
                 self.groups['all_sprites'].add(new_laser_2)
                 self.groups['all_lasers_2'].add(new_laser_2)            
+                #self.assets['laser2_sound'].play()
+
+    def star_ship(self, state):
+        if state:
+            if self.player == 'ship1':
+                self.image = self.assets['ship1_star']
+            if self.player == 'ship2':
+                self.image = self.assets['ship2_star']
+        else:
+            self.image = self.assets[self.player]
+
+    def speed_multiplier(self):
+        if self.shoot_ticks > 100:
+            self.shoot_ticks -= 100
+
+    def size_multiplier(self):
+        if self.scale < 5:
+            self.scale += 0.5
+
+
 
 class Explode(pygame.sprite.Sprite):
     def __init__(self, assets, center):

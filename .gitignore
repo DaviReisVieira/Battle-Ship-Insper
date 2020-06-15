@@ -1,2 +1,4 @@
 .vscode/settings.json
 .__pycache__/
+.config/__pycache__
+.telas/__pycache__

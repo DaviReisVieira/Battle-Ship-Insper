@@ -3,6 +3,7 @@ from config import *
 from os import path
 
 pygame.init()
+pygame.mixer.init()
 
 def load_assets():
     assets = {}
@@ -39,9 +40,15 @@ def load_assets():
     assets['ship1'] = pygame.image.load('resources/img/NavePlayer1.png').convert_alpha()
     assets['ship1'] = pygame.transform.scale(assets['ship1'], (SHIP_SIZE, SHIP_SIZE))
     assets['ship1'] = pygame.transform.rotate(assets['ship1'], -90)
+    assets['ship1_star'] = pygame.image.load('resources/img/NavePlayer1Star.png').convert_alpha()
+    assets['ship1_star'] = pygame.transform.scale(assets['ship1_star'], (SHIP_SIZE, SHIP_SIZE))
+    assets['ship1_star'] = pygame.transform.rotate(assets['ship1_star'], -90)
     assets['ship2'] = pygame.image.load('resources/img/NavePlayer2.png').convert_alpha()
     assets['ship2'] = pygame.transform.scale(assets['ship2'], (SHIP_SIZE, SHIP_SIZE))
     assets['ship2'] = pygame.transform.rotate(assets['ship2'], 90)
+    assets['ship2_star'] = pygame.image.load('resources/img/NavePlayer2Star.png').convert_alpha()
+    assets['ship2_star'] = pygame.transform.scale(assets['ship2_star'], (SHIP_SIZE, SHIP_SIZE))
+    assets['ship2_star'] = pygame.transform.rotate(assets['ship2_star'], 90)
     assets['laser1'] = pygame.image.load('resources/img/bullet1.png').convert_alpha()
     assets['laser2'] = pygame.image.load('resources/img/bullet2.png').convert_alpha()
     assets['star'] = pygame.image.load('resources/img/PowerStar.png').convert_alpha()
@@ -50,6 +57,7 @@ def load_assets():
     assets['speed'] = pygame.transform.scale(assets['speed'], (POWERUP_SIZE,POWERUP_SIZE))
     assets['size'] = pygame.image.load('resources/img/PowerSize.png').convert_alpha()
     assets['size'] = pygame.transform.scale(assets['size'], (POWERUP_SIZE,POWERUP_SIZE))
+    assets['heart'] = pygame.image.load('resources/img/Vida.png').convert_alpha()
     explosion = []
     for e in range(NUMERO_FRAMES):
         file = 'resources/img/regularExplosion0{}.png'.format(e)
@@ -57,5 +65,17 @@ def load_assets():
         img =  pygame.transform.scale(img, (40, 40))
         explosion.append(img)
     assets['explosion'] = explosion
+
+    # carrega sons
+    pygame.mixer.music.load('resources/sounds/background_music.mp3')
+    pygame.mixer.music.set_volume(0.4)
+    assets['corona_on_sound'] = pygame.mixer.Sound('resources/sounds/coronaon.wav')
+    assets['lost1_sound'] = pygame.mixer.Sound('resources/sounds/coronaon.wav')
+    assets['lost2_sound'] = pygame.mixer.Sound('resources/sounds/coronaon.wav')
+    assets['menu1_sound'] = pygame.mixer.Sound('resources/sounds/menu.wav')
+    assets['menu2_sound'] = pygame.mixer.Sound('resources/sounds/menu2.wav')
+    assets['explosion_sound'] = pygame.mixer.Sound('resources/sounds/explosion1.wav')
+    assets['laser1_sound'] = pygame.mixer.Sound('resources/sounds/coronaon.wav')
+    assets['laser2_sound'] = pygame.mixer.Sound('resources/sounds/coronaon.wav')
 
     return assets

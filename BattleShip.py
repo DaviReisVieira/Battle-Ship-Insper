@@ -11,6 +11,7 @@ from config import HEIGHT, WIDTH, QUIT, TELA_INICIAL, GAME, TELA_FINAL
 
 # ------ inicia pygame
 pygame.init()
+pygame.mixer.init()
 
 # ------ Gera a Tela de jogo
 TELA = pygame.display.set_mode((WIDTH, HEIGHT))
