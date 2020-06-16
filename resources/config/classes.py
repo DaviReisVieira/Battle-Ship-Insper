@@ -75,10 +75,10 @@ class Size(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
         if player == PLAYER_1:
-            self.rect.x = random.randint(SHIP_AREA, WIDTH/2-SHIP_SIZE) # ajeitar
+            self.rect.x = random.randint(SHIP_AREA, WIDTH/2-SHIP_SIZE)
         else:
-            self.rect.x = random.randint(WIDTH/2+SHIP_SIZE, WIDTH-SHIP_AREA) # ajeitar
-        self.rect.y = random.randint(-820, -100) # ajeitar
+            self.rect.x = random.randint(WIDTH/2+SHIP_SIZE, WIDTH-SHIP_AREA)
+        self.rect.y = random.randint(-820, -100)
         self.speedy = POWERUP_SPEED
 
     def update(self):
@@ -106,13 +106,10 @@ class Asteroides(pygame.sprite.Sprite):
         self.rect.x = random.randint(SHIP_AREA, WIDTH-ASTEROID_WIDTH-SHIP_AREA)
         self.rect.y = random.randint(-820, -100)
         self.speedy = random.randint(4, 5)
-        #self.rotate = 0
 
     def update(self):
 
         self.rect.y += self.speedy
-        #self.image = pygame.transform.rotate(self.original_image,self.rotate)
-        #self.rotate += 1%360
         
 
         if self.rect.top > HEIGHT:
@@ -190,16 +187,16 @@ class Ship(pygame.sprite.Sprite):
             self.last_shot = now
 
             if self.player == 'ship1':
+                self.assets['laser1_sound'].play()
                 new_laser_1 = Laser(self.assets,'laser1', self.rect.centery, self.rect.x, LASER_SPEED, self.scale)
                 self.groups['all_sprites'].add(new_laser_1)
                 self.groups['all_lasers_1'].add(new_laser_1)
-                #self.assets['laser1_sound'].play()
 
             if self.player == 'ship2':
+                self.assets['laser2_sound'].play()
                 new_laser_2 = Laser(self.assets,'laser2', self.rect.centery, self.rect.x, -LASER_SPEED, self.scale)
                 self.groups['all_sprites'].add(new_laser_2)
                 self.groups['all_lasers_2'].add(new_laser_2)            
-                #self.assets['laser2_sound'].play()
 
     def star_ship(self, state):
         if state:
@@ -250,6 +247,3 @@ class Explode(pygame.sprite.Sprite):
                 self.image = self.explosion[self.frame]
                 self.rect = self.image.get_rect()
                 self.rect.center = center
-
-
-()

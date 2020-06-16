@@ -28,15 +28,18 @@ Projeto Final de Design de Software 2020.1 - 1C
 - [x] Adicionando naves
 - [x] Adicionar física de colisão
 - [x] Criar Menu 
+- [x] Itens Adicionais
+- [x] Easter Egg(?)
+- [x] Adicionar sons
 
 ## Descrição
 
 Battle Ship é um jogo em Python feito com a biblioteca PyGame para o Projeto Final de Design de Software 2020.1.
 
-Em uma realidade muito, muito distante, a onda de um vírus intergalático devastador chegou ao fim. Com isso, a sociedade iniciou seu processo de retomada. Porém, estudantes da faculdade SpaceInsper divergiram suas ideias e alguns queriam continuar o estilo Intergalático Ensino à Distância, IeAd, enquanto outros queriam retornar às aulas presenciais no planeta Tinsper.
+Em uma realidade muito, muito distante, a onda de um vírus intergalático devastador chegou ao fim. Com isso, a sociedade iniciou seu processo de retomada. Porém, estudantes da faculdade SpaceInsper divergiram suas ideias e alguns queriam continuar o estilo Intergalático Ensino à Distância, IEaD, enquanto outros queriam retornar às aulas presenciais no planeta Tinsper. Nisso, uma guerra espacial começou...
 
 
-O jogo tem como objetivo destruir o oponente.
+O jogo tem como objetivo **destruir** o oponente para dar um fim à guerra.
 
 ## Requisitos
 
@@ -60,6 +63,6 @@ O jogo tem como objetivo destruir o oponente.
 
 </details>
 
-## Easter Egg:
+## Easter Egg
 
 1. Em config > CORONA > True

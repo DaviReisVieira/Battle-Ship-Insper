@@ -27,12 +27,12 @@ def tela_final (TELA,vitoria):
 
             TELA.blit(assets['TelaFinal'], ORIGEM)
 
-            TELA.blit(assets['Player1Win'],ORIGEM)
+            TELA.blit(assets['Player1Win'], ORIGEM)
 
             if last_flick < FPS:
                 TELA.blit(assets['PressSpace'], ORIGEM)
                 last_flick += 1
-            elif last_flick == FPS*2-1:
+            elif last_flick == FPS*2 - 1:
                 last_flick = 0
             else:
                 last_flick += 1
@@ -45,12 +45,12 @@ def tela_final (TELA,vitoria):
 
             TELA.blit(assets['TelaFinal'], ORIGEM)
 
-            TELA.blit(assets['Player2Win'],ORIGEM)
+            TELA.blit(assets['Player2Win'], ORIGEM)
 
             if last_flick < FPS:
                 TELA.blit(assets['PressSpace'], ORIGEM)
                 last_flick += 1
-            elif last_flick == FPS*2-1:
+            elif last_flick == FPS*2 - 1:
                 last_flick = 0
             else:
                 last_flick += 1

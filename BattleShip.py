@@ -8,6 +8,7 @@ from TelaInicial import tela_inicial
 from TelaJogo import tela_jogo
 from TelaFinal import tela_final
 from config import HEIGHT, WIDTH, QUIT, TELA_INICIAL, GAME, TELA_FINAL
+import assets as assets_file
 
 # ------ inicia pygame
 pygame.init()
@@ -23,15 +24,20 @@ estado = TELA_INICIAL
 resultado = 0
 vitoria = 0
 
+assets = assets_file.load_assets()
+
 while estado != QUIT:
     if estado == TELA_INICIAL:
+        assets['menu_sound'].play()
         estado = tela_inicial(TELA)
     if estado == GAME:
         resultado = tela_jogo(TELA)
         estado = resultado [0]
         vitoria = resultado [1]
     if estado == TELA_FINAL:
+        assets['lost_sound'].play()
         estado = tela_final(TELA, vitoria)
+        
 
 
 # ----- Finaliza o jogo
