@@ -64,7 +64,7 @@ def tela_jogo(TELA):
     player_2_dead = False
     
     clock = pygame.time.Clock()
-
+    keys_down = {}
     while estado != TELA_FINAL and estado != QUIT:
         clock.tick(FPS)
         
@@ -74,6 +74,7 @@ def tela_jogo(TELA):
             
             # Pressiona a tecla
             if event.type == pygame.KEYDOWN:
+                keys_down[event.key] = True
                 #Player 1
                 if event.key == pygame.K_w:
                     player_1.speedy -= SHIP_SPEED
@@ -100,25 +101,26 @@ def tela_jogo(TELA):
 
             # Solta a tecla
             if event.type == pygame.KEYUP:
-                #Player 1
-                if event.key == pygame.K_w:
-                    player_1.speedy += SHIP_SPEED
-                if event.key == pygame.K_s:
-                    player_1.speedy -= SHIP_SPEED
-                if event.key == pygame.K_a:
-                    player_1.speedx += SHIP_SPEED
-                if event.key == pygame.K_d:
-                    player_1.speedx -= SHIP_SPEED
+                if event.key in keys_down and keys_down[event.key]:
+                    #Player 1
+                    if event.key == pygame.K_w:
+                        player_1.speedy += SHIP_SPEED
+                    if event.key == pygame.K_s:
+                        player_1.speedy -= SHIP_SPEED
+                    if event.key == pygame.K_a:
+                        player_1.speedx += SHIP_SPEED
+                    if event.key == pygame.K_d:
+                        player_1.speedx -= SHIP_SPEED
 
-                #Player 2
-                if event.key == pygame.K_UP:
-                    player_2.speedy += SHIP_SPEED
-                if event.key == pygame.K_DOWN:
-                    player_2.speedy -= SHIP_SPEED
-                if event.key == pygame.K_LEFT:
-                    player_2.speedx += SHIP_SPEED
-                if event.key == pygame.K_RIGHT:
-                    player_2.speedx -= SHIP_SPEED
+                    #Player 2
+                    if event.key == pygame.K_UP:
+                        player_2.speedy += SHIP_SPEED
+                    if event.key == pygame.K_DOWN:
+                        player_2.speedy -= SHIP_SPEED
+                    if event.key == pygame.K_LEFT:
+                        player_2.speedx += SHIP_SPEED
+                    if event.key == pygame.K_RIGHT:
+                        player_2.speedx -= SHIP_SPEED
                 
         all_sprites.update()
         
@@ -325,6 +327,7 @@ def tela_jogo(TELA):
                         player_2 = Ship(groups, assets, 'ship2', WIDTH-SHIP_SIZE)
                         all_sprites.add(player_1)
                         all_sprites.add(player_2)
+                        keys_down = {}
                         player_1_dead = False
                         estado = GAME
                 
@@ -338,6 +341,7 @@ def tela_jogo(TELA):
                         player_2 = Ship(groups, assets, 'ship2', WIDTH-SHIP_SIZE)
                         all_sprites.add(player_1)
                         all_sprites.add(player_2)
+                        keys_down = {}
                         player_2_dead = False
                         estado = GAME
 
