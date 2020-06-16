@@ -41,6 +41,14 @@ Em uma realidade muito, muito distante, a onda de um vírus intergalático devas
 
 O jogo tem como objetivo **destruir** o oponente para dar um fim à guerra.
 
+## Vídeo de funcionamento:
+
+Devido a problemas com o som será compartilhado em dois vídeos:
+
+- com som, porém com poucos frames: https://web.microsoftstream.com/video/8cd4d1a7-f568-4c06-a2cb-7b6c799fc167
+
+- sem som: https://www.youtube.com/watch?v=tsSIi2Qt6Qc&feature=youtu.be
+
 ## Requisitos
 
 1. Instale o Python 3.x
