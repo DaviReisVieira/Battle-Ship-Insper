@@ -67,21 +67,28 @@ def tela_jogo(TELA):
         all_sprites.add(powerUp)
         all_powerups.add(powerUp)
 
+    def createStar(powerUp):
+        addPowerUpToGroups(powerUp)
+        all_star.add(powerUp)
+
+    def createSpeed(powerUp):
+        addPowerUpToGroups(powerUp)
+        all_speed.add(powerUp)
+
+    def createSize(powerUp):
+        addPowerUpToGroups(powerUp)
+        all_size.add(powerUp)
+
     def createPowerUp(player):
-        POWER_UP = random.randint(1, 3)
-        
-        if POWER_UP == 1:
-            estrela = PowerUp(assets, player, 'star')
-            addPowerUpToGroups(estrela)
-            all_star.add(estrela)
-        if POWER_UP == 2:
-            velocidade = PowerUp(assets, player, 'speed')
-            addPowerUpToGroups(velocidade)
-            all_speed.add(velocidade)
-        if POWER_UP == 3:
-            tamanho = PowerUp(assets, player, 'size')
-            addPowerUpToGroups(tamanho)
-            all_size.add(tamanho)
+        powerUpList=['star','speed','size']
+        powerUpSelected=powerUpList[random.randint(0,2)]
+
+        if powerUpSelected == 'star':
+            createStar(PowerUp(assets, player, powerUpSelected))
+        if powerUpSelected == 'speed':
+            createSpeed(PowerUp(assets, player, powerUpSelected))
+        if powerUpSelected == 'size':
+            createSize(PowerUp(assets, player, powerUpSelected))
     
     clock = pygame.time.Clock()
     keys_down = {}
@@ -227,7 +234,7 @@ def tela_jogo(TELA):
                     tick_explosao = pygame.time.get_ticks()
 
 
-            # ======= player 1 ========
+            # ======= player 2 ========
             # ------ Power Ups ----------
             hits_player_2_estrelinha = pygame.sprite.spritecollide(player_2, all_star, True, pygame.sprite.collide_mask)
             if hits_player_2_estrelinha:
