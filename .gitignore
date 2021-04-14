@@ -2,3 +2,5 @@
 .__pycache__/
 .config/__pycache__/
 .telas/__pycache__/
+/resources/config/__pycache__
+/resources/telas/__pycache__
