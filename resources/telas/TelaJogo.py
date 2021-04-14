@@ -62,6 +62,26 @@ def tela_jogo(TELA):
 
     player_1_dead = False
     player_2_dead = False
+
+    def addPowerUpToGroups(powerUp):
+        all_sprites.add(powerUp)
+        all_powerups.add(powerUp)
+
+    def createPowerUp(player):
+        POWER_UP = random.randint(1, 3)
+        
+        if POWER_UP == 1:
+            estrela = PowerUp(assets, player, 'star')
+            addPowerUpToGroups(estrela)
+            all_star.add(estrela)
+        if POWER_UP == 2:
+            velocidade = PowerUp(assets, player, 'speed')
+            addPowerUpToGroups(velocidade)
+            all_speed.add(velocidade)
+        if POWER_UP == 3:
+            tamanho = PowerUp(assets, player, 'size')
+            addPowerUpToGroups(tamanho)
+            all_size.add(tamanho)
     
     clock = pygame.time.Clock()
     keys_down = {}
@@ -169,22 +189,7 @@ def tela_jogo(TELA):
                 score_player_1 += 100
 
                 if score_player_1 % 1000 == 0:
-                    POWER_UP = random.randint(1, 3)
-                    if POWER_UP == 1:
-                        estrela = Star(assets, PLAYER_1)
-                        all_sprites.add(estrela)
-                        all_powerups.add(estrela)
-                        all_star.add(estrela)
-                    if POWER_UP == 2:
-                        velocidade = Speed(assets, PLAYER_1)
-                        all_sprites.add(velocidade)
-                        all_powerups.add(velocidade)
-                        all_speed.add(velocidade)
-                    if POWER_UP == 3:
-                        tamanho = Size(assets, PLAYER_1)
-                        all_sprites.add(tamanho)
-                        all_powerups.add(tamanho)
-                        all_size.add(tamanho)
+                    createPowerUp(PLAYER_1)
 
             if star_player_1 == True:
                 hits_player_1_asteroid = pygame.sprite.spritecollide(player_1, all_asteroids, True, pygame.sprite.collide_mask)
@@ -262,22 +267,8 @@ def tela_jogo(TELA):
                 score_player_2 += 100
 
                 if score_player_2 % 1000 == 0:
-                    POWER_UP = random.randint(1, 3)
-                    if POWER_UP == 1:
-                        estrela = Star(assets, PLAYER_2)
-                        all_sprites.add(estrela)
-                        all_powerups.add(estrela)
-                        all_star.add(estrela)
-                    if POWER_UP == 2:
-                        velocidade = Speed(assets, PLAYER_2)
-                        all_sprites.add(velocidade)
-                        all_powerups.add(velocidade)
-                        all_speed.add(velocidade)
-                    if POWER_UP == 3:
-                        tamanho = Size(assets, PLAYER_2)
-                        all_sprites.add(tamanho)
-                        all_powerups.add(tamanho)
-                        all_size.add(tamanho)
+                    createPowerUp(PLAYER_2)
+
             if star_player_2:
                 hits_player_2_asteroid = pygame.sprite.spritecollide(player_2, all_asteroids, True, pygame.sprite.collide_mask)
                 for asteroid in  hits_player_2_asteroid: # colisão entre asteroids e player 1 com estrela

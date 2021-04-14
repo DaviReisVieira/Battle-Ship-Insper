@@ -3,88 +3,26 @@ import assets
 import random
 from config import *
 
-
-
 pygame.init()
 pygame.mixer.init()
 
-def load_spritesheet(spritesheet, rows, columns):
-    sprite_width = spritesheet.get_width() // columns
-    sprite_height = spritesheet.get_height() // rows
-    
-    sprites = []
-    for row in range(rows):
-        for column in range(columns):
-            x = column * sprite_width
-            y = row * sprite_height
-            dest_rect = pygame.Rect(x, y, sprite_width, sprite_height)
 
-            image = pygame.Surface((sprite_width, sprite_height), pygame.SRCALPHA)
-            image.blit(spritesheet, (0, 0), dest_rect)
-            sprites.append(image)
-            
-    return sprites
-
-class Star(pygame.sprite.Sprite):
-    def __init__(self, assets, player):
+class PowerUp(pygame.sprite.Sprite):
+    def __init__(self, assets, player, power_type):
         pygame.sprite.Sprite.__init__(self)
         
-        self.image = assets['star']
+        self.image = assets[power_type]
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
         if player == PLAYER_1:
-            self.rect.x = random.randint(SHIP_AREA, WIDTH/2-SHIP_SIZE) # ajeitar
+            self.rect.x = random.randint(SHIP_AREA, WIDTH/2-SHIP_SIZE) 
         else:
-            self.rect.x = random.randint(WIDTH/2+SHIP_SIZE, WIDTH-SHIP_AREA) # ajeitar
-        self.rect.y = random.randint(-820, -100) # ajeitar
+            self.rect.x = random.randint(WIDTH/2+SHIP_SIZE, WIDTH-SHIP_AREA) 
+        self.rect.y = random.randint(-820, -100) 
         self.speedy = POWERUP_SPEED
 
     def update(self):
-
         self.rect.y += self.speedy
-
-        if self.rect.top > HEIGHT:
-            self.kill()
-
-class Speed(pygame.sprite.Sprite):
-    def __init__(self, assets, player):
-        pygame.sprite.Sprite.__init__(self)
-
-        self.image = assets['speed']
-        self.mask = pygame.mask.from_surface(self.image)
-        self.rect = self.image.get_rect()
-        if player == PLAYER_1:
-            self.rect.x = random.randint(SHIP_AREA, WIDTH/2-SHIP_SIZE) # ajeitar
-        else:
-            self.rect.x = random.randint(WIDTH/2+SHIP_SIZE, WIDTH-SHIP_AREA) # ajeitar
-        self.rect.y = random.randint(-820, -100) # ajeitar
-        self.speedy = POWERUP_SPEED
-
-    def update(self):
-
-        self.rect.y += self.speedy
-
-        if self.rect.top > HEIGHT:
-            self.kill()
-
-class Size(pygame.sprite.Sprite):
-    def __init__(self, assets, player):
-        pygame.sprite.Sprite.__init__(self)
-
-        self.image = assets['size']
-        self.mask = pygame.mask.from_surface(self.image)
-        self.rect = self.image.get_rect()
-        if player == PLAYER_1:
-            self.rect.x = random.randint(SHIP_AREA, WIDTH/2-SHIP_SIZE)
-        else:
-            self.rect.x = random.randint(WIDTH/2+SHIP_SIZE, WIDTH-SHIP_AREA)
-        self.rect.y = random.randint(-820, -100)
-        self.speedy = POWERUP_SPEED
-
-    def update(self):
-
-        self.rect.y += self.speedy
-
         if self.rect.top > HEIGHT:
             self.kill()
             
