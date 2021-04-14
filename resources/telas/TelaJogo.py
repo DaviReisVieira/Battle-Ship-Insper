@@ -5,6 +5,73 @@ from classes import *
 from config import *
 
 
+def eventKeyPress(key):
+    speedPress_x(key)
+    speedPress_y(key)
+    shootKey(key)
+
+def eventKeyRelease(key):
+    speedRelease_x(key)
+    speedRelease_y(key)
+
+
+def speedPress_y(key):
+    # Player 1
+    if key == pygame.K_w:
+        player_1.speedy -= SHIP_SPEED
+    if key == pygame.K_s:
+        player_1.speedy += SHIP_SPEED
+    # Player 2
+    if key == pygame.K_UP:
+        player_2.speedy -= SHIP_SPEED
+    if key == pygame.K_DOWN:
+        player_2.speedy += SHIP_SPEED
+
+def speedPress_x(key):
+    # Player 1
+    if key == pygame.K_a:
+        player_1.speedx -= SHIP_SPEED
+    if key == pygame.K_d:
+        player_1.speedx += SHIP_SPEED
+    # Player 2
+    if key == pygame.K_LEFT:
+        player_2.speedx -= SHIP_SPEED
+    if key == pygame.K_RIGHT:
+        player_2.speedx += SHIP_SPEED
+
+def speedRelease_y(key):
+    # Player 1
+    if key == pygame.K_w:
+        player_1.speedy += SHIP_SPEED
+    if key == pygame.K_s:
+        player_1.speedy -= SHIP_SPEED
+    # Player 2
+    if key == pygame.K_UP:
+        player_2.speedy += SHIP_SPEED
+    if key == pygame.K_DOWN:
+        player_2.speedy -= SHIP_SPEED
+
+def speedRelease_x(key):
+    # Player 1:
+    if key == pygame.K_a:
+        player_1.speedx += SHIP_SPEED
+    if key == pygame.K_d:
+        player_1.speedx -= SHIP_SPEED
+    # Player 2:
+    if key == pygame.K_LEFT:
+        player_2.speedx += SHIP_SPEED
+    if key == pygame.K_RIGHT:
+        player_2.speedx -= SHIP_SPEED
+    
+
+def shootKey(key):
+    # Player 1
+    if key == pygame.K_RETURN:
+        player_2.shoot()
+    # Player 2
+    if key == pygame.K_SPACE:
+        player_1.shoot()
+
 def tela_jogo(TELA):
 
     assets = assets_file.load_assets()
@@ -75,53 +142,13 @@ def tela_jogo(TELA):
             # Pressiona a tecla
             if event.type == pygame.KEYDOWN:
                 keys_down[event.key] = True
-                #Player 1
-                if event.key == pygame.K_w:
-                    player_1.speedy -= SHIP_SPEED
-                if event.key == pygame.K_s:
-                    player_1.speedy += SHIP_SPEED
-                if event.key == pygame.K_a:
-                    player_1.speedx -= SHIP_SPEED
-                if event.key == pygame.K_d:
-                    player_1.speedx += SHIP_SPEED
-                if event.key == pygame.K_SPACE:
-                    player_1.shoot()
-
-                #Player 2
-                if event.key == pygame.K_UP:
-                    player_2.speedy -= SHIP_SPEED
-                if event.key == pygame.K_DOWN:
-                    player_2.speedy += SHIP_SPEED
-                if event.key == pygame.K_LEFT:
-                    player_2.speedx -= SHIP_SPEED
-                if event.key == pygame.K_RIGHT:
-                    player_2.speedx += SHIP_SPEED
-                if event.key == pygame.K_RETURN:
-                    player_2.shoot()
+                eventKeyPress(event.key)
 
             # Solta a tecla
             if event.type == pygame.KEYUP:
                 if event.key in keys_down and keys_down[event.key]:
-                    #Player 1
-                    if event.key == pygame.K_w:
-                        player_1.speedy += SHIP_SPEED
-                    if event.key == pygame.K_s:
-                        player_1.speedy -= SHIP_SPEED
-                    if event.key == pygame.K_a:
-                        player_1.speedx += SHIP_SPEED
-                    if event.key == pygame.K_d:
-                        player_1.speedx -= SHIP_SPEED
-
-                    #Player 2
-                    if event.key == pygame.K_UP:
-                        player_2.speedy += SHIP_SPEED
-                    if event.key == pygame.K_DOWN:
-                        player_2.speedy -= SHIP_SPEED
-                    if event.key == pygame.K_LEFT:
-                        player_2.speedx += SHIP_SPEED
-                    if event.key == pygame.K_RIGHT:
-                        player_2.speedx -= SHIP_SPEED
-                
+                    eventKeyRelease(event.key)
+                    
         all_sprites.update()
         
 
