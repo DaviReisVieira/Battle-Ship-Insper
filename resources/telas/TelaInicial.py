@@ -22,13 +22,12 @@ def tela_inicial (TELA):
             elif event.type == pygame.KEYDOWN:
                 estado = GAME
 
-                    
-        if estado == TELA_INICIAL:
+        def keepScreen(screen, last_flick):
             TELA.fill(BLACK)
 
             TELA.blit(assets['background'], ORIGEM)
             
-            TELA.blit(assets['Letreiro'], ORIGEM)
+            TELA.blit(assets[screen], ORIGEM)
 
             if last_flick < 30:
                 TELA.blit(assets['PressKey'], ORIGEM)
@@ -39,22 +38,11 @@ def tela_inicial (TELA):
                 last_flick += 1
 
             pygame.display.update()
+
+        if estado == TELA_INICIAL:
+            keepScreen("Letreiro", last_flick)
         
         elif estado == INSTRUCOES:
-            TELA.fill(BLACK)
-
-            TELA.blit(assets['background'], ORIGEM)
-            
-            TELA.blit(assets['Instrucoes'], ORIGEM)
-
-            if last_flick < 30:
-                TELA.blit(assets['PressKey'], ORIGEM)
-                last_flick += 1
-            elif last_flick == 59:
-                last_flick = 0
-            else:
-                last_flick += 1
-
-            pygame.display.update()
+            keepScreen("Instrucoes", last_flick)
 
     return estado

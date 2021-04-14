@@ -20,41 +20,27 @@ def tela_final (TELA,vitoria):
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 estado = GAME
 
-        if estado == TELA_FINAL and vitoria == 1:
+        def keepScreenFinal(screen, last_flick):
             TELA.fill(BLACK)
 
             TELA.blit(assets['background'], ORIGEM)
+            
+            TELA.blit(assets[screen], ORIGEM)
 
-            TELA.blit(assets['TelaFinal'], ORIGEM)
-
-            TELA.blit(assets['Player1Win'], ORIGEM)
-
-            if last_flick < FPS:
-                TELA.blit(assets['PressSpace'], ORIGEM)
+            if last_flick < 30:
+                TELA.blit(assets['PressKey'], ORIGEM)
                 last_flick += 1
-            elif last_flick == FPS*2 - 1:
+            elif last_flick == 59:
                 last_flick = 0
             else:
                 last_flick += 1
+
+            pygame.display.update()
+
+        if estado == TELA_FINAL and vitoria == 1:
+            keepScreenFinal("Player1Win", last_flick)
 
         if estado == TELA_FINAL and vitoria == 2:
-
-            TELA.fill(BLACK)
-
-            TELA.blit(assets['background'], ORIGEM)
-
-            TELA.blit(assets['TelaFinal'], ORIGEM)
-
-            TELA.blit(assets['Player2Win'], ORIGEM)
-
-            if last_flick < FPS:
-                TELA.blit(assets['PressSpace'], ORIGEM)
-                last_flick += 1
-            elif last_flick == FPS*2 - 1:
-                last_flick = 0
-            else:
-                last_flick += 1
-
-        pygame.display.update()
+            keepScreenFinal("Player2Win", last_flick)
 
     return estado
