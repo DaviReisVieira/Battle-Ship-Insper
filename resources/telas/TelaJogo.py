@@ -89,6 +89,15 @@ def tela_jogo(TELA):
             createSpeed(PowerUp(assets, player, powerUpSelected))
         if powerUpSelected == 'size':
             createSize(PowerUp(assets, player, powerUpSelected))
+
+    def colisaoAsteroidesLaser():
+        assets['explosion_sound'].play()
+        novo_asteroid = Asteroides(assets)
+        all_sprites.add(novo_asteroid)
+        all_asteroids.add(novo_asteroid)
+
+        explode_asteroid = Explode(assets, asteroid.rect.center)
+        all_sprites.add(explode_asteroid)
     
     clock = pygame.time.Clock()
     keys_down = {}
@@ -182,23 +191,17 @@ def tela_jogo(TELA):
 
             hits_laser_1_powerups = pygame.sprite.groupcollide(all_lasers_1, all_powerups, True, True, pygame.sprite.collide_mask)
 
-            #--------- Closisões ----------
+            #--------- Colisões ----------
             hits_asteroid_laser_1 = pygame.sprite.groupcollide(all_asteroids, all_lasers_1, True, True, pygame.sprite.collide_mask)
             for asteroid in hits_asteroid_laser_1: # colisão entre asteroids e lasers 1
-                assets['explosion_sound'].play()
-                novo_asteroid = Asteroides(assets)
-                all_sprites.add(novo_asteroid)
-                all_asteroids.add(novo_asteroid)
-
-                explode_asteroid = Explode(assets, asteroid.rect.center)
-                all_sprites.add(explode_asteroid)
+                colisaoAsteroidesLaser()
 
                 score_player_1 += 100
 
                 if score_player_1 % 1000 == 0:
                     createPowerUp(PLAYER_1)
 
-            if star_player_1 == True:
+            if star_player_1:
                 hits_player_1_asteroid = pygame.sprite.spritecollide(player_1, all_asteroids, True, pygame.sprite.collide_mask)
                 for asteroid in  hits_player_1_asteroid: # colisão entre asteroids e player 1 com estrela
                     assets['explosion_sound'].play()
@@ -263,14 +266,8 @@ def tela_jogo(TELA):
             # -------- Colisões ------------
             hits_asteroid_laser_2 = pygame.sprite.groupcollide(all_asteroids, all_lasers_2, True, True, pygame.sprite.collide_mask)
             for asteroid in hits_asteroid_laser_2: # colisão entre asteroids e lasers 2
-                assets['explosion_sound'].play()
-                novo_asteroid = Asteroides(assets)
-                all_sprites.add(novo_asteroid)
-                all_asteroids.add(novo_asteroid)
-
-                explode_asteroid = Explode(assets, asteroid.rect.center)
-                all_sprites.add(explode_asteroid)
-
+                colisaoAsteroidesLaser()
+                
                 score_player_2 += 100
 
                 if score_player_2 % 1000 == 0:
